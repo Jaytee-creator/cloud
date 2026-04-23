@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Data Redundancy Removal System</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --bg2: #161b27;
+    --bg3: #1e2535;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text: #e8eaf0;
+    --text2: #8b91a8;
+    --text3: #555d7a;
+    --green: #22c55e;
+    --green-bg: rgba(34,197,94,0.1);
+    --red: #ef4444;
+    --red-bg: rgba(239,68,68,0.1);
+    --amber: #f59e0b;
+    --amber-bg: rgba(245,158,11,0.1);
+    --blue: #3b82f6;
+    --blue-bg: rgba(59,130,246,0.1);
+    --radius: 8px;
+    --radius-lg: 12px;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Courier New', Courier, monospace;
+    min-height: 100vh;
+    padding: 24px 16px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    font-family: 'Courier New', monospace;
+  }
+
+  header p {
+    font-size: 12px;
+    color: var(--text3);
+    margin-top: 6px;
+    letter-spacing: 0.08em;
+    font-family: sans-serif;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; }
+
+  /* Stats */
+  .stats-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 20px; }
+  .stat { background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 12px 14px; }
+  .stat-label { font-size: 10px; color: var(--text3); letter-spacing: 0.1em; font-family: sans-serif; margin-bottom: 6px; }
+  .stat-val { font-size: 24px; font-weight: 700; }
+  .stat-val.green { color: var(--green); }
+  .stat-val.red { color: var(--red); }
+  .stat-val.amber { color: var(--amber); }
+  .stat-val.blue { color: var(--blue); }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 2px; border-bottom: 0.5px solid var(--border); margin-bottom: 20px; }
+  .tab { padding: 9px 18px; font-size: 12px; font-weight: 500; cursor: pointer; border: none; background: transparent; color: var(--text2); border-bottom: 2px solid transparent; margin-bottom: -1px; font-family: sans-serif; letter-spacing: 0.05em; transition: color 0.15s; }
+  .tab.active { color: var(--text); border-bottom-color: var(--blue); }
+  .tab:hover:not(.active) { color: var(--text); }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* Pipeline */
+  .section-title { font-size: 10px; letter-spacing: 0.12em; color: var(--text3); font-family: sans-serif; font-weight: 600; margin-bottom: 10px; }
+  .pipeline { display: flex; align-items: center; gap: 0; margin-bottom: 20px; overflow-x: auto; padding-bottom: 4px; }
+  .p-step { display: flex; align-items: center; flex: 1; min-width: 90px; }
+  .p-box { background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 8px 6px; font-size: 10px; text-align: center; font-family: sans-serif; color: var(--text2); flex: 1; transition: all 0.2s; }
+  .p-box .p-label { font-weight: 600; font-size: 11px; color: var(--text); }
+  .p-box .p-sub { color: var(--text3); font-size: 9px; margin-top: 2px; }
+  .p-box.active-step { border-color: var(--blue); background: var(--blue-bg); }
+  .p-box.active-step .p-label { color: var(--blue); }
+  .p-arrow { font-size: 14px; color: var(--text3); padding: 0 3px; flex-shrink: 0; }
+
+  /* Card */
+  .card { background: var(--bg2); border: 0.5px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; margin-bottom: 16px; }
+
+  /* Form */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label { font-size: 10px; color: var(--text3); letter-spacing: 0.1em; font-family: sans-serif; font-weight: 600; }
+  .field input, .field select {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    border: 0.5px solid var(--border2);
+    background: var(--bg3);
+    color: var(--text);
+    width: 100%;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+  .field input:focus, .field select:focus { border-color: var(--blue); }
+  .field select option { background: var(--bg3); }
+
+  /* Buttons */
+  .btn-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .btn {
+    padding: 9px 18px;
+    border-radius: var(--radius);
+    font-size: 12px;
+    font-family: sans-serif;
+    cursor: pointer;
+    border: 0.5px solid var(--border2);
+    background: transparent;
+    color: var(--text);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    transition: all 0.15s;
+  }
+  .btn:hover { background: var(--bg3); }
+  .btn.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .btn.primary:hover { opacity: 0.85; }
+  .btn.danger { border-color: var(--red); color: var(--red); }
+  .btn.danger:hover { background: var(--red-bg); }
+
+  /* Validation result */
+  .validation-result { font-size: 12px; font-family: sans-serif; padding: 10px 14px; border-radius: var(--radius); margin-top: 12px; display: none; line-height: 1.5; }
+  .validation-result.show { display: block; }
+  .validation-result.unique { background: var(--green-bg); color: var(--green); border: 0.5px solid rgba(34,197,94,0.3); }
+  .validation-result.duplicate { background: var(--red-bg); color: var(--red); border: 0.5px solid rgba(239,68,68,0.3); }
+  .validation-result.fp { background: var(--amber-bg); color: var(--amber); border: 0.5px solid rgba(245,158,11,0.3); }
+
+  /* DB Table */
+  .search-bar { display: flex; gap: 8px; margin-bottom: 12px; }
+  .search-bar input {
+    flex: 1; font-family: 'Courier New', monospace; font-size: 13px;
+    padding: 8px 12px; border-radius: var(--radius);
+    border: 0.5px solid var(--border2); background: var(--bg3);
+    color: var(--text); outline: none;
+  }
+  .search-bar input:focus { border-color: var(--blue); }
+
+  .db-wrap { border: 0.5px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+  .db-table { width: 100%; border-collapse: collapse; font-size: 12px; font-family: 'Courier New', monospace; }
+  .db-table th { text-align: left; font-size: 9px; letter-spacing: 0.1em; color: var(--text3); font-family: sans-serif; font-weight: 600; padding: 8px 12px; border-bottom: 0.5px solid var(--border); background: var(--bg2); }
+  .db-table td { padding: 9px 12px; border-bottom: 0.5px solid var(--border); color: var(--text); vertical-align: middle; }
+  .db-table tr:last-child td { border-bottom: none; }
+  .db-table tbody tr:hover td { background: var(--bg3); }
+
+  .badge { display: inline-block; font-size: 9px; padding: 3px 8px; border-radius: 20px; font-family: sans-serif; font-weight: 700; letter-spacing: 0.06em; }
+  .badge.verified { background: var(--green-bg); color: var(--green); }
+  .badge.fp { background: var(--amber-bg); color: var(--amber); }
+  .badge.dup { background: var(--red-bg); color: var(--red); }
+
+  .btn-del { font-size: 10px; padding: 4px 10px; border-radius: var(--radius); border: 0.5px solid rgba(239,68,68,0.4); color: var(--red); background: transparent; cursor: pointer; font-family: sans-serif; font-weight: 600; transition: background 0.15s; }
+  .btn-del:hover { background: var(--red-bg); }
+
+  /* Scanner */
+  .scanner-grid { display: flex; flex-direction: column; gap: 10px; max-height: 300px; overflow-y: auto; }
+  .dup-group { border: 0.5px solid rgba(239,68,68,0.35); border-radius: var(--radius); padding: 12px 14px; background: var(--red-bg); }
+  .dup-group-title { font-size: 10px; color: var(--red); font-family: sans-serif; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 8px; }
+  .dup-item { font-size: 12px; color: var(--text); padding: 4px 0; display: flex; justify-content: space-between; align-items: center; border-bottom: 0.5px solid rgba(239,68,68,0.15); }
+  .dup-item:last-child { border-bottom: none; }
+  .no-dups { font-size: 13px; color: var(--green); font-family: sans-serif; padding: 12px 0; }
+  .empty-state { font-size: 13px; color: var(--text3); font-family: sans-serif; text-align: center; padding: 32px; }
+
+  /* Log */
+  .log-panel { background: var(--bg3); border-radius: var(--radius); padding: 12px 14px; max-height: 300px; overflow-y: auto; font-size: 12px; color: var(--text2); }
+  .log-line { padding: 3px 0; border-bottom: 0.5px solid var(--border); }
+  .log-line:last-child { border-bottom: none; }
+  .ts-tag { color: var(--text3); margin-right: 8px; }
+  .tag { font-weight: 700; margin-right: 8px; font-family: sans-serif; }
+  .tag.ok { color: var(--green); }
+  .tag.dup { color: var(--red); }
+  .tag.fp { color: var(--amber); }
+  .tag.del { color: var(--red); }
+
+  /* Slider */
+  input[type=range] { accent-color: var(--blue); width: 100%; }
+
+  @media (max-width: 600px) {
+    .stats-bar { grid-template-columns: repeat(2,1fr); }
+    .form-grid { grid-template-columns: 1fr; }
+    .pipeline { gap: 0; }
+    .p-box .p-sub { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>DATA REDUNDANCY REMOVAL SYSTEM</h1>
+    <p>Validates · Classifies · Prevents Duplicates · Ensures Database Accuracy</p>
+  </header>
+
+  <div class="stats-bar" id="stats-bar"></div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('ingest',this)">Data Ingestion</button>
+    <button class="tab" onclick="switchTab('database',this)">Database</button>
+    <button class="tab" onclick="switchTab('scanner',this)">Redundancy Scanner</button>
+    <button class="tab" onclick="switchTab('log',this)">Activity Log</button>
+  </div>
+
+  <!-- INGESTION -->
+  <div class="panel active" id="panel-ingest">
+    <div class="section-title">VALIDATION PIPELINE</div>
+    <div class="pipeline">
+      <div class="p-step"><div class="p-box" id="ps-0"><div class="p-label">Input</div><div class="p-sub">New record</div></div><span class="p-arrow">›</span></div>
+      <div class="p-step"><div class="p-box" id="ps-1"><div class="p-label">Hash Check</div><div class="p-sub">Exact match?</div></div><span class="p-arrow">›</span></div>
+      <div class="p-step"><div class="p-box" id="ps-2"><div class="p-label">Fuzzy Match</div><div class="p-sub">Similarity score</div></div><span class="p-arrow">›</span></div>
+      <div class="p-step"><div class="p-box" id="ps-3"><div class="p-label">FP Check</div><div class="p-sub">Rule filter</div></div><span class="p-arrow">›</span></div>
+      <div class="p-step"><div class="p-box" id="ps-4"><div class="p-label">Classify</div><div class="p-sub">Unique/Dup/FP</div></div><span class="p-arrow">›</span></div>
+      <div class="p-step"><div class="p-box" id="ps-5"><div class="p-label">Commit</div><div class="p-sub">Write to DB</div></div></div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">NEW RECORD</div>
+      <div class="form-grid">
+        <div class="field"><label>NAME</label><input id="f-name" type="text" placeholder="e.g. Ada Lovelace"/></div>
+        <div class="field"><label>EMAIL</label><input id="f-email" type="email" placeholder="e.g. ada@example.com"/></div>
+        <div class="field"><label>DEPARTMENT</label>
+          <select id="f-dept">
+            <option value="">Select department...</option>
+            <option>Engineering</option><option>Marketing</option><option>Finance</option>
+            <option>HR</option><option>Operations</option><option>Sales</option>
+          </select>
+        </div>
+        <div class="field"><label>EMPLOYEE ID</label><input id="f-id" type="text" placeholder="e.g. EMP-0042"/></div>
+      </div>
+      <div class="btn-row">
+        <button class="btn primary" onclick="submitRecord()">Validate &amp; Submit</button>
+        <button class="btn" onclick="loadSample()">Load Sample</button>
+        <button class="btn" onclick="clearForm()">Clear</button>
+      </div>
+      <div class="validation-result" id="validation-result"></div>
+    </div>
+  </div>
+
+  <!-- DATABASE -->
+  <div class="panel" id="panel-database">
+    <div class="search-bar">
+      <input type="text" placeholder="Search records by name, email, ID..." oninput="renderDB(this.value)" id="db-search"/>
+      <button class="btn danger" onclick="purgeAll()">Purge All</button>
+    </div>
+    <div class="db-wrap"><div id="db-table-wrap"></div></div>
+  </div>
+
+  <!-- SCANNER -->
+  <div class="panel" id="panel-scanner">
+    <div class="card">
+      <div class="section-title">REDUNDANCY ANALYSIS</div>
+      <div style="display:flex;gap:8px;margin-bottom:14px;align-items:center;flex-wrap:wrap;">
+        <button class="btn primary" onclick="runScan()">Run Full Scan</button>
+        <button class="btn danger" onclick="autoRemoveDups()">Remove All Duplicates</button>
+        <span id="scan-status" style="font-size:11px;font-family:sans-serif;color:var(--text3);margin-left:auto;"></span>
+      </div>
+      <div class="scanner-grid" id="scanner-grid"><div class="empty-state">Run a scan to detect redundant records</div></div>
+    </div>
+    <div class="card">
+      <div class="section-title">THRESHOLD SETTINGS</div>
+      <div class="form-grid">
+        <div class="field">
+          <label>SIMILARITY THRESHOLD: <span id="sim-val">80%</span></label>
+          <input type="range" min="50" max="100" value="80" id="sim-threshold" oninput="document.getElementById('sim-val').textContent=this.value+'%'"/>
+        </div>
+        <div class="field">
+          <label>HOW IT WORKS</label>
+          <p style="font-size:12px;color:var(--text2);font-family:sans-serif;line-height:1.6;padding-top:4px;">Records with similarity above the threshold are flagged as duplicates. Lower the threshold to catch more near-matches.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOG -->
+  <div class="panel" id="panel-log">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <div class="section-title" style="margin:0">ACTIVITY LOG</div>
+      <button class="btn danger" onclick="clearLog()" style="font-size:11px;padding:5px 12px;">Clear Log</button>
+    </div>
+    <div class="log-panel" id="log-panel"><div style="color:var(--text3);font-size:12px;">No activity yet.</div></div>
+  </div>
+</div>
+
+<script>
+const SAMPLES = [
+  {name:"Alice Mensah",email:"alice@company.ng",dept:"Engineering",id:"EMP-0001"},
+  {name:"Bob Adeyemi",email:"bob@company.ng",dept:"Marketing",id:"EMP-0002"},
+  {name:"Chidi Okonkwo",email:"chidi@company.ng",dept:"Finance",id:"EMP-0003"},
+  {name:"Dami Bakare",email:"dami@company.ng",dept:"HR",id:"EMP-0004"},
+  {name:"Emeka Nwachukwu",email:"emeka@company.ng",dept:"Operations",id:"EMP-0005"},
+];
+
+let db = [], log = [], sampleIdx = 0;
+let stats = {total:0,unique:0,rejected:0,fp:0};
+
+function now() { return new Date().toTimeString().slice(0,8); }
+
+function addLog(tag,msg,type) {
+  log.unshift({ts:now(),tag,msg,type});
+  if(log.length>100) log.pop();
+}
+
+function hash(r) { return [r.email.trim().toLowerCase(),r.id.trim().toLowerCase()].join('|'); }
+
+function similarity(a,b) {
+  const sa=(a.name+a.email+a.dept+a.id).toLowerCase();
+  const sb=(b.name+b.email+b.dept+b.id).toLowerCase();
+  let match=0,total=Math.max(sa.length,sb.length);
+  for(let i=0;i<Math.min(sa.length,sb.length);i++) if(sa[i]===sb[i]) match++;
+  return total===0?0:Math.round((match/total)*100);
+}
+
+function classify(rec) {
+  const h=hash(rec);
+  for(const r of db) {
+    if(hash(r)===h) return {result:'duplicate',reason:`Exact match with record #${r._id} (${r.name})`,match:r};
+  }
+  const threshold=parseInt(document.getElementById('sim-threshold').value);
+  for(const r of db) {
+    const sim=similarity(rec,r);
+    if(sim>=threshold) {
+      if(r.id.trim().toLowerCase()===rec.id.trim().toLowerCase()&&r.email.trim().toLowerCase()!==rec.email.trim().toLowerCase()) {
+        return {result:'false_positive',reason:`Similar name/dept but different email — likely different person (sim: ${sim}%)`,match:r};
+      }
+      return {result:'duplicate',reason:`High similarity (${sim}%) with record #${r._id} — ${r.name}`,match:r};
+    }
+  }
+  return {result:'unique',reason:'No matching or highly similar records found.'};
+}
+
+async function animatePipeline(steps,delay=200) {
+  for(const s of steps) {
+    for(let i=0;i<6;i++){const el=document.getElementById('ps-'+i);if(el)el.classList.toggle('active-step',i===s);}
+    await new Promise(r=>setTimeout(r,delay));
+  }
+  setTimeout(()=>{for(let i=0;i<6;i++){const el=document.getElementById('ps-'+i);if(el)el.classList.remove('active-step');}},600);
+}
+
+function submitRecord() {
+  const rec={
+    name:document.getElementById('f-name').value.trim(),
+    email:document.getElementById('f-email').value.trim(),
+    dept:document.getElementById('f-dept').value,
+    id:document.getElementById('f-id').value.trim(),
+  };
+  const vr=document.getElementById('validation-result');
+  if(!rec.name||!rec.email||!rec.dept||!rec.id){
+    vr.className='validation-result show fp';
+    vr.textContent='⚠ All fields are required before submission.';
+    return;
+  }
+  stats.total++;
+  animatePipeline([0,1,2,3,4,5],180);
+  const result=classify(rec);
+  vr.className='validation-result show';
+  if(result.result==='unique'){
+    rec._id=db.length+1; rec._status='verified'; rec._ts=now();
+    db.push(rec); stats.unique++;
+    vr.classList.add('unique');
+    vr.textContent=`✔ UNIQUE — Record accepted and committed to database. ID: #${rec._id}`;
+    addLog('OK',`Accepted: ${rec.name} (${rec.email}) → #${rec._id}`,'ok');
+  } else if(result.result==='duplicate'){
+    stats.rejected++;
+    vr.classList.add('duplicate');
+    vr.textContent=`✘ DUPLICATE — ${result.reason}. Record rejected.`;
+    addLog('DUP',`Rejected: ${rec.name} — ${result.reason}`,'dup');
+  } else {
+    stats.fp++;
+    rec._id=db.length+1; rec._status='false_positive'; rec._ts=now();
+    db.push(rec);
+    vr.classList.add('fp');
+    vr.textContent=`⚑ FALSE POSITIVE — ${result.reason}. Committed with FP flag for review.`;
+    addLog('FP',`False positive: ${rec.name} — ${result.reason}`,'fp');
+  }
+  renderStats(); clearForm(false);
+}
+
+function loadSample(){
+  const s=SAMPLES[sampleIdx%SAMPLES.length]; sampleIdx++;
+  document.getElementById('f-name').value=s.name;
+  document.getElementById('f-email').value=s.email;
+  document.getElementById('f-dept').value=s.dept;
+  document.getElementById('f-id').value=s.id;
+}
+
+function clearForm(clearResult=true){
+  ['f-name','f-email','f-id'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-dept').value='';
+  if(clearResult){const vr=document.getElementById('validation-result');vr.className='validation-result';vr.textContent='';}
+}
+
+function renderStats(){
+  document.getElementById('stats-bar').innerHTML=`
+    <div class="stat"><div class="stat-label">TOTAL SUBMITTED</div><div class="stat-val blue">${stats.total}</div></div>
+    <div class="stat"><div class="stat-label">ACCEPTED (UNIQUE)</div><div class="stat-val green">${stats.unique}</div></div>
+    <div class="stat"><div class="stat-label">REJECTED (DUPS)</div><div class="stat-val red">${stats.rejected}</div></div>
+    <div class="stat"><div class="stat-label">FALSE POSITIVES</div><div class="stat-val amber">${stats.fp}</div></div>`;
+}
+
+function renderDB(search=''){
+  const wrap=document.getElementById('db-table-wrap');
+  const q=search.toLowerCase();
+  const rows=db.filter(r=>!q||(r.name+r.email+r.dept+r.id).toLowerCase().includes(q));
+  if(rows.length===0){wrap.innerHTML=`<div class="empty-state">${db.length===0?'No records in database yet. Submit some records first.':'No records match your search.'}</div>`;return;}
+  wrap.innerHTML=`<table class="db-table">
+    <thead><tr><th>#</th><th>NAME</th><th>EMAIL</th><th>DEPT</th><th>EMP ID</th><th>TIME</th><th>STATUS</th><th></th></tr></thead>
+    <tbody>${rows.map(r=>`<tr>
+      <td style="color:var(--text3)">${r._id}</td>
+      <td>${r.name}</td>
+      <td style="color:var(--text2)">${r.email}</td>
+      <td>${r.dept}</td>
+      <td style="color:var(--text2)">${r.id}</td>
+      <td style="color:var(--text3)">${r._ts}</td>
+      <td><span class="badge ${r._status==='verified'?'verified':r._status==='false_positive'?'fp':'dup'}">${r._status==='verified'?'VERIFIED':r._status==='false_positive'?'FALSE POS':'DUP'}</span></td>
+      <td><button class="btn-del" onclick="deleteRecord(${r._id})">Remove</button></td>
+    </tr>`).join('')}</tbody>
+  </table>`;
+}
+
+function deleteRecord(id){
+  const idx=db.findIndex(r=>r._id===id);
+  if(idx===-1)return;
+  const r=db[idx];
+  addLog('DEL',`Removed record #${id}: ${r.name}`,'del');
+  db.splice(idx,1);
+  stats.unique=db.filter(r=>r._status==='verified').length;
+  stats.fp=db.filter(r=>r._status==='false_positive').length;
+  renderDB(document.getElementById('db-search').value);
+  renderStats();
+}
+
+function purgeAll(){
+  if(!confirm('Purge ALL records from the database? This cannot be undone.'))return;
+  db=[]; stats={total:0,unique:0,rejected:0,fp:0};
+  addLog('DEL','All records purged','del');
+  renderDB(); renderStats();
+}
+
+function runScan(){
+  const threshold=parseInt(document.getElementById('sim-threshold').value);
+  const grid=document.getElementById('scanner-grid');
+  const status=document.getElementById('scan-status');
+  if(db.length<2){grid.innerHTML='<div class="no-dups">&#10003; Not enough records to compare. Add more data first.</div>';status.textContent='';return;}
+  const groups=[],visited=new Set();
+  for(let i=0;i<db.length;i++){
+    if(visited.has(i))continue;
+    const group=[db[i]];
+    for(let j=i+1;j<db.length;j++){
+      if(visited.has(j))continue;
+      if(similarity(db[i],db[j])>=threshold){group.push(db[j]);visited.add(j);}
+    }
+    if(group.length>1){groups.push(group);visited.add(i);}
+  }
+  status.textContent=`Scanned ${db.length} records · ${groups.length} group(s) flagged`;
+  if(groups.length===0){grid.innerHTML='<div class="no-dups">&#10003; No redundant records detected at current threshold.</div>';return;}
+  grid.innerHTML=groups.map((g,gi)=>`
+    <div class="dup-group">
+      <div class="dup-group-title">DUPLICATE GROUP ${gi+1} — ${g.length} RECORDS</div>
+      ${g.map(r=>`<div class="dup-item"><span>#${r._id} &nbsp; ${r.name} &nbsp; <span style="color:var(--text3)">${r.email}</span></span><button class="btn-del" onclick="deleteRecord(${r._id});runScan()">Remove</button></div>`).join('')}
+    </div>`).join('');
+}
+
+function autoRemoveDups(){
+  const threshold=parseInt(document.getElementById('sim-threshold').value);
+  const toDelete=new Set();
+  for(let i=0;i<db.length;i++){
+    if(toDelete.has(db[i]._id))continue;
+    for(let j=i+1;j<db.length;j++){
+      if(toDelete.has(db[j]._id))continue;
+      if(similarity(db[i],db[j])>=threshold){toDelete.add(db[j]._id);addLog('DEL',`Auto-removed duplicate #${db[j]._id}: ${db[j].name}`,'del');}
+    }
+  }
+  db=db.filter(r=>!toDelete.has(r._id));
+  stats.unique=db.filter(r=>r._status==='verified').length;
+  stats.fp=db.filter(r=>r._status==='false_positive').length;
+  renderStats(); renderDB(); runScan();
+}
+
+function clearLog(){log=[];renderLog();}
+
+function renderLog(){
+  const panel=document.getElementById('log-panel');
+  if(log.length===0){panel.innerHTML='<div style="color:var(--text3);font-size:12px;">No activity yet.</div>';return;}
+  panel.innerHTML=log.map(l=>`<div class="log-line"><span class="ts-tag">${l.ts}</span><span class="tag ${l.type}">[${l.tag}]</span>${l.msg}</div>`).join('');
+}
+
+function switchTab(id,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+  if(id==='database')renderDB(document.getElementById('db-search')?.value||'');
+  if(id==='log')renderLog();
+}
+
+renderStats();
+renderDB();
+</script>
+</body>
+</html>
