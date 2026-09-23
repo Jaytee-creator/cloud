@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Awodeyi Jesutofunmi</title>
+  <meta name="description" content="Get in touch with Awodeyi Jesutofunmi for freelance web development, internships, or collaborations." />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <div class="bg-decor" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="particle-field" data-particles></div>
+  </div>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">AJ</span>
+        <span class="logo-name">Jesutofunmi</span>
+      </a>
+
+      <nav class="nav-links" id="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="skills.html">Skills</a>
+        <a href="projects.html">Projects</a>
+        <a href="experience.html">Experience</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" type="button" aria-label="Toggle light and dark theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
+        <a href="contact.html" class="btn btn-primary btn-sm nav-cta">
+          <span class="nav-cta-full">Let's Work Together</span>
+          <span class="nav-cta-short">Contact</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <span class="nav-toggle-bars"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ PAGE HEADER ============ -->
+    <section class="section container" style="padding-top: calc(var(--nav-height) + var(--space-7)); padding-bottom: var(--space-6);">
+      <div class="section-header reveal">
+        <span class="eyebrow">Contact</span>
+        <h1 class="page-title">Let's build something</h1>
+        <p>Have a project in mind or just want to connect? I'd love to hear from you.</p>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT GRID ============ -->
+    <section class="section-tight container">
+      <div class="contact-grid">
+
+        <div class="card reveal">
+          <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
+
+          <form id="contact-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" type="text" id="name" name="name" autocomplete="name" required />
+                <p class="form-error" id="name-error"></p>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input class="form-control" type="email" id="email" name="email" autocomplete="email" required />
+                <p class="form-error" id="email-error"></p>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input class="form-control" type="text" id="subject" name="subject" required />
+              <p class="form-error" id="subject-error"></p>
+            </div>
+
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea class="form-control" id="message" name="message" required></textarea>
+              <p class="form-error" id="message-error"></p>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+          </form>
+        </div>
+
+        <div class="reveal">
+          <div class="contact-info-list">
+            <div class="card contact-info-item">
+              <div class="icon-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+              </div>
+              <div>
+                <span>Email</span>
+                <!-- Replace with your real email address -->
+                <strong>awodeyijesutofunmi@gmail.com</strong>
+              </div>
+            </div>
+
+            <div class="card contact-info-item">
+              <div class="icon-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><polygon points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5"/><circle cx="12" cy="12" r="2.1" fill="currentColor" stroke="none"/></svg>
+              </div>
+              <div>
+                <span>GitHub</span>
+                <!-- Replace with your real GitHub username -->
+                <strong>https://github.com/Jaytee-creator</strong>
+              </div>
+            </div>
+
+            <div class="card contact-info-item">
+              <div class="icon-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7"/></svg>
+              </div>
+              <div>
+                <span>LinkedIn</span>
+                <!-- Replace with your real LinkedIn username -->
+                <strong>www.linkedin.com/in/
+jesutofunmi-awodeyi-089bb23a3
+</strong>
+              </div>
+            </div>
+
+            <div class="card contact-info-item">
+              <div class="icon-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg>
+              </div>
+              <div>
+                <span>Location</span>
+                <strong>Lagos State, Nigeria</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <span class="logo-mark">AJ</span>
+            <span class="logo-name">Jesutofunmi</span>
+          </a>
+          <p>Computer Science student and software developer building clean, functional web experiences — and branching into Python and machine learning.</p>
+          <div class="footer-social" style="margin-top: 1.5rem;">
+            <a href="#" aria-label="GitHub profile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><polygon points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5"/><circle cx="12" cy="12" r="2.1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn profile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7"/></svg>
+            </a>
+            <a href="contact.html" aria-label="Contact by email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="">GitHub</a></li>
+            <li><a href="LinkedIn">LinkedIn</a></li>
+            <li><a href="awodeyijesutofunmi@gmail.com">Email</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; <span data-year></span> Awodeyi Jesutofunmi. All rights reserved.</span>
+        <span>Built with HTML, CSS &amp; JavaScript.</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+  </button>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

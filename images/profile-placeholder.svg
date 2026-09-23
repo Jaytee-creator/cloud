@@ -1,0 +1,23 @@
+<svg viewBox="0 0 480 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder profile photo — replace with a real photo of Jesutofunmi">
+  <defs>
+    <linearGradient id="pbg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1b1d29"/>
+      <stop offset="100%" stop-color="#0f1014"/>
+    </linearGradient>
+    <radialGradient id="pglow" cx="50%" cy="40%" r="45%">
+      <stop offset="0%" stop-color="#f5a93e" stop-opacity="0.32"/>
+      <stop offset="100%" stop-color="#f5a93e" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="pdots" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="1.2" cy="1.2" r="1.2" fill="#ffffff" opacity="0.07"/>
+    </pattern>
+  </defs>
+  <rect width="480" height="600" fill="url(#pbg)"/>
+  <rect width="480" height="600" fill="url(#pdots)"/>
+  <rect width="480" height="600" fill="url(#pglow)"/>
+  <circle cx="240" cy="255" r="120" fill="none" stroke="#f5a93e" stroke-opacity="0.5" stroke-width="1.5"/>
+  <circle cx="240" cy="255" r="95" fill="#181a24" stroke="#f5a93e" stroke-opacity="0.7" stroke-width="1.5"/>
+  <text x="240" y="278" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="72" fill="#f5a93e">AJ</text>
+  <line x1="150" y1="430" x2="330" y2="430" stroke="#ffffff" stroke-opacity="0.12"/>
+  <text x="240" y="464" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="15" letter-spacing="1.5" fill="#8a8fa3">REPLACE WITH YOUR PHOTO</text>
+</svg>
