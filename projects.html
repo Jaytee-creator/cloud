@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects — Awodeyi Jesutofunmi</title>
+  <meta name="description" content="A showcase of web development and machine learning projects by Awodeyi Jesutofunmi." />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <div class="bg-decor" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="particle-field" data-particles></div>
+  </div>
+
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">
+        <span class="logo-mark">AJ</span>
+        <span class="logo-name">Jesutofunmi</span>
+      </a>
+
+      <nav class="nav-links" id="nav-links" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="skills.html">Skills</a>
+        <a href="projects.html">Projects</a>
+        <a href="experience.html">Experience</a>
+        <a href="services.html">Services</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" type="button" aria-label="Toggle light and dark theme">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.2 4.2l1.6 1.6M18.2 18.2l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.2 19.8l1.6-1.6M18.2 5.8l1.6-1.6"/></svg>
+        </button>
+        <a href="contact.html" class="btn btn-primary btn-sm nav-cta">
+          <span class="nav-cta-full">Let's Work Together</span>
+          <span class="nav-cta-short">Contact</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+          <span class="nav-toggle-bars"><span></span><span></span><span></span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ============ PAGE HEADER ============ -->
+    <section class="section container" style="padding-top: calc(var(--nav-height) + var(--space-7)); padding-bottom: var(--space-6);">
+      <div class="section-header reveal">
+        <span class="eyebrow">Work</span>
+        <h1 class="page-title">Things I've built</h1>
+        <p>Mostly vanilla HTML, CSS and JavaScript, with a growing branch into Python and machine learning.</p>
+      </div>
+
+      <div class="filter-bar reveal" role="group" aria-label="Filter projects by category">
+        <button class="filter-btn active" data-filter="all" type="button">All</button>
+        <button class="filter-btn" data-filter="web" type="button">Web</button>
+        <button class="filter-btn" data-filter="python" type="button">Python</button>
+        <button class="filter-btn" data-filter="ml" type="button">Machine Learning</button>
+      </div>
+    </section>
+
+    <!-- ============ PROJECT GRID ============ -->
+    <section class="section-tight container">
+      <div class="project-grid reveal-stagger">
+
+        <article class="project-card" data-category="web">
+          <div class="project-thumb">
+            <span class="project-status">LIVE</span>
+            <img src="images/projects/one-eko.svg" alt="One Eko project thumbnail" />
+          </div>
+          <div class="project-body">
+            <h3>One Eko</h3>
+            <p>A civic-focused emergency services website built to help Lagos residents reach the right help faster — clear categories, accessible layout, no unnecessary friction.</p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="btn btn-outline btn-sm">GitHub</a>
+              <a href="#" class="btn btn-ghost btn-sm">Live Demo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="python ml">
+          <div class="project-thumb">
+            <span class="project-status">IN PROGRESS</span>
+            <img src="images/projects/writing-classifier.svg" alt="Writing-style classifier project thumbnail" />
+          </div>
+          <div class="project-body">
+            <h3>Writing-Style Classifier</h3>
+            <p>My first machine learning project, built from scratch — a text classifier that distinguishes my own writing from someone else's, using TF-IDF features and logistic regression.</p>
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">scikit-learn</span>
+              <span class="tag">TF-IDF</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="btn btn-outline btn-sm">GitHub</a>
+              <a href="#" class="btn btn-ghost btn-sm">Live Demo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="web">
+          <div class="project-thumb">
+            <span class="project-status">COURSEWORK</span>
+            <img src="images/projects/nimbusdrive.svg" alt="NimbusDrive project thumbnail" />
+          </div>
+          <div class="project-body">
+            <h3>NimbusDrive</h3>
+            <p>A simulated cloud storage app built as a cloud computing coursework submission — file listings, upload states, and a clean dashboard-style layout.</p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="btn btn-outline btn-sm">GitHub</a>
+              <a href="#" class="btn btn-ghost btn-sm">Live Demo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="web">
+          <div class="project-thumb">
+            <span class="project-status">CONCEPT</span>
+            <img src="images/projects/hourglass.svg" alt="Hourglass project thumbnail" />
+          </div>
+          <div class="project-body">
+            <h3>Hourglass</h3>
+            <p>A multi-page site built for a fictional SaaS product — practice in structuring a consistent design system across several linked pages.</p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="btn btn-outline btn-sm">GitHub</a>
+              <a href="#" class="btn btn-ghost btn-sm">Live Demo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="web">
+          <div class="project-thumb">
+            <span class="project-status">LIVE</span>
+            <img src="images/projects/nexa.svg" alt="Nexa project thumbnail" />
+          </div>
+          <div class="project-body">
+            <h3>Nexa</h3>
+            <p>A login and signup system with Gmail-only email validation, built to explore form logic and validation patterns in plain JavaScript.</p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="btn btn-outline btn-sm">GitHub</a>
+              <a href="#" class="btn btn-ghost btn-sm">Live Demo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="web">
+          <div class="project-thumb">
+            <span class="project-status">LIVE</span>
+            <img src="images/projects/data-redundancy.svg" alt="Data Redundancy Removal System project thumbnail" />
+          </div>
+          <div class="project-body">
+            <h3>Data Redundancy Removal System</h3>
+            <p>A browser-based interactive tool with a tabbed interface and an animated validation pipeline for identifying and removing duplicate data.</p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="btn btn-outline btn-sm">GitHub</a>
+              <a href="#" class="btn btn-ghost btn-sm">Live Demo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="web">
+          <div class="project-thumb">
+            <span class="project-status">LIVE</span>
+            <img src="images/projects/lumiere.svg" alt="Lumière project thumbnail" />
+          </div>
+          <div class="project-body">
+            <h3>Lumière</h3>
+            <p>A responsive anime and photo gallery focused on clean grid layouts that hold up cleanly across screen sizes.</p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS Grid</span>
+              <span class="tag">JavaScript</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="btn btn-outline btn-sm">GitHub</a>
+              <a href="#" class="btn btn-ghost btn-sm">Live Demo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card" data-category="web">
+          <div class="project-thumb">
+            <span class="project-status">LIVE</span>
+            <img src="images/projects/clipdeck.svg" alt="Clipdeck project thumbnail" />
+          </div>
+          <div class="project-body">
+            <h3>Clipdeck</h3>
+            <p>Video gallery layouts exploring how to present a lot of media cleanly, using Flexbox and CSS Grid without any external library.</p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="btn btn-outline btn-sm">GitHub</a>
+              <a href="#" class="btn btn-ghost btn-sm">Live Demo</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <span class="logo-mark">AJ</span>
+            <span class="logo-name">Jesutofunmi</span>
+          </a>
+          <p>Computer Science student and software developer building clean, functional web experiences — and branching into Python and machine learning.</p>
+          <div class="footer-social" style="margin-top: 1.5rem;">
+            <a href="#" aria-label="GitHub profile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><polygon points="12 3 20 7.5 20 16.5 12 21 4 16.5 4 7.5"/><circle cx="12" cy="12" r="2.1" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn profile">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5.5A1.5 1.5 0 0 1 9.5 4h5A1.5 1.5 0 0 1 16 5.5V7"/></svg>
+            </a>
+            <a href="contact.html" aria-label="Contact by email">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><polyline points="3 7 12 13 21 7"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="contact.html">Email</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; <span data-year></span> Awodeyi Jesutofunmi. All rights reserved.</span>
+        <span>Built with HTML, CSS &amp; JavaScript.</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+  </button>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

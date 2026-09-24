@@ -1,0 +1,28 @@
+<svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lumière project thumbnail">
+  <defs>
+    <linearGradient id="bg-lumiere" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#181a24"/>
+      <stop offset="100%" stop-color="#101117"/>
+    </linearGradient>
+    <radialGradient id="glow-lumiere" cx="50%" cy="38%" r="55%">
+      <stop offset="0%" stop-color="#f5a93e" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#f5a93e" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="dots-lumiere" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="1.2" cy="1.2" r="1.2" fill="#ffffff" opacity="0.06"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="500" fill="url(#bg-lumiere)"/>
+  <rect width="800" height="500" fill="url(#dots-lumiere)"/>
+  <rect width="800" height="500" fill="url(#glow-lumiere)"/>
+  <rect x="0.5" y="0.5" width="799" height="499" fill="none" stroke="#ffffff" stroke-opacity="0.08"/>
+  <g transform="translate(400,190)" stroke="#f5a93e" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    
+        <rect x="-70" y="-50" width="140" height="100" rx="10"/>
+        <circle cx="-35" cy="-20" r="12"/>
+        <polyline points="-70,35 -20,-5 15,25 35,5 70,35"/>
+    
+  </g>
+  <text x="400" y="380" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="700" fill="#f3f4f7">Lumière</text>
+  <text x="400" y="412" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" letter-spacing="2" fill="#8a8fa3">PHOTO &amp; ANIME GALLERY</text>
+</svg>
